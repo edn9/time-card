@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Time Card </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Day {{today.getDate()}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngIf="days[0].status!=null">
+        <ion-label>Description</ion-label>
+        <ion-input [(ngModel)]="days[0].description"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="days[0].start">
+        <ion-text>Start at {{days[0].start.format('LLL')}}.</ion-text>
+      </ion-item>
+      <hr />
+      <div *ngIf="days[0].pause.length>0">
+        <ion-item *ngFor="let p of days[0].pause; let i = index">
+          <ion-text>{{i+1}}. {{p.action}} at {{p.m.format('LLL')}}.</ion-text>
+        </ion-item>
+      </div>
+      <hr />
+
+      <ion-item *ngIf="days[0].end">
+        <ion-text>Ended at {{days[0].end.format('LLL')}}.</ion-text>
+      </ion-item>
+      <hr />
+      <ion-item *ngIf="days[0].dMessage">
+        <ion-text>{{days[0].dMessage}}</ion-text>
+      </ion-item>
+      <ion-item *ngIf="days[0].status">
+        <ion-text>Current Status {{days[0].status}}</ion-text>
+      </ion-item>
+      <hr />
+      <ion-button *ngIf="!days[0].status" color="success" (click)="startWork()"
+        >Start</ion-button
+      >
+      <ion-button
+        *ngIf="days[0].status=='Working'"
+        color="dark"
+        (click)="pauseWork()"
+        >Pause</ion-button
+      >
+      <ion-button
+        *ngIf="days[0].status=='Paused'"
+        color="warning"
+        (click)="returnWork()"
+        >Return</ion-button
+      >
+      <ion-button
+        *ngIf="days[0].status!=null&&days[0].status=='Working'&&days[0].status!='Ended'"
+        color="danger"
+        (click)="endWork()"
+        >End</ion-button
+      >
+      <!-- <ion-button color="primary" (click)="log()">Console</ion-button> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>

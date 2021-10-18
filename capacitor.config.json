@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "time-card",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
